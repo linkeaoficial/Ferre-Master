@@ -1272,9 +1272,9 @@
 .portfolio-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.9); /* Azul Slate oscuro */
+    background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(8px);
-    z-index: 5000; /* Por encima de todo */
+    z-index: 5000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1298,17 +1298,18 @@
     transform: translateY(40px) scale(0.95);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
 }
 
+/* Animación cuando se activa */
+.portfolio-modal-overlay.active .portfolio-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+/* Soporte para modo oscuro si el body tiene la clase */
 body.dark-mode .portfolio-modal-card {
     background: #1e293b;
     color: white;
-}
-
-.portfolio-modal-overlay.active .portfolio-modal-card {
-    transform: translateY(0) scale(1);
 }
 
 @media (max-width: 768px) {
