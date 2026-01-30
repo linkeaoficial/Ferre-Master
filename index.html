@@ -1,0 +1,2441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FerreMaster - Las mejores herramientas y materiales de construcción para profesionales. Calidad, durabilidad y los mejores precios del mercado.">
+    <meta name="keywords" content="ferretería, herramientas, construcción, bricolaje, materiales, martillos, taladros">
+    <meta name="author" content="FerreMaster">
+    <title>FerreMaster | Herramientas para Profesionales</title>
+    
+    <link rel="icon" href="https://api.iconify.design/lucide:wrench.svg?color=%23f59e0b" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --primary: #f59e0b; /* Amber 500 - Tono industrial */
+            --primary-dark: #d97706;
+            --dark: #0f172a; /* Slate 900 */
+            --light: #f8fafc;
+            --gray: #64748b;
+            --glass: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Variables para Modo Oscuro/Claro dinámicas */
+            --bg-body: #f8fafc;
+            --text-main: #0f172a;
+            --card-bg: #ffffff;
+            --nav-bg-scrolled: rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- CONFIGURACIÓN MODO OSCURO --- */
+        body.dark-mode {
+            --bg-body: #0f172a;      /* Fondo oscuro */
+            --text-main: #f8fafc;    /* Texto claro */
+            --card-bg: #1e293b;      /* Tarjetas gris oscuro */
+            --primary-dark: #fbbf24; /* Amarillo más brillante */
+            --gray: #94a3b8;
+            --nav-bg-scrolled: rgba(15, 23, 42, 0.95);
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body); /* Usamos variable dinámica */
+            color: var(--text-main);          /* Usamos variable dinámica */
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UTILIDADES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem;
+            background: var(--dark); /* Se mantiene oscuro siempre para contraste */
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* Ajuste botón en modo oscuro para que se vea bien sobre fondo oscuro */
+        body.dark-mode .btn:not(.btn-primary) {
+            background: #334155;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #0f172a; /* Texto oscuro siempre en botón primario */
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title span {
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: var(--nav-bg-scrolled);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            color: white;
+        }
+
+        /* Textos del header al hacer scroll */
+        header.scrolled .logo,
+        header.scrolled .nav-links a:not(.btn) {
+            color: var(--text-main);
+        }
+
+        .nav-links a:not(.btn)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:not(.btn):hover::after { width: 100%; }
+
+        /* --- BOTÓN MODO OSCURO (NUEVO) --- */
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle-btn:hover {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+
+        header.scrolled .theme-toggle-btn {
+            color: var(--text-main);
+            border-color: var(--gray);
+        }
+
+        /* --- HAMBURGER MENU --- */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled .bar {
+            background: var(--text-main);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: #0f172a;
+            color: white;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 0;
+            /* ANIMACIÓN KEN BURNS NOTORIA (10s, scale 1.4) */
+            animation: zoomPortada 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes zoomPortada {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.4); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards 0.2s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #cbd5e1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards 0.4s;
+        }
+
+        .hero-btns {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s forwards 0.6s;
+            display: flex;
+            flex-direction: row; /* En fila */
+            gap: 1rem;
+        }
+
+        /* --- FEATURES --- */
+        .features {
+            padding: 5rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            background: var(--card-bg); /* Fondo dinámico */
+            margin-top: -5rem;
+            position: relative;
+            z-index: 10;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- FEATURES (Efectos Modernos) --- */
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            transition: var(--transition);
+            border-radius: 20px;
+            background: var(--card-bg);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(245, 158, 11, 0.08);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--primary);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover .icon-box {
+            background: var(--primary);
+            color: white;
+            transform: rotate(10deg) scale(1.1);
+        }
+
+        .icon-box::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            left: -100%;
+            transition: 0.5s;
+        }
+
+        .feature-card:hover .icon-box::after {
+            left: 100%;
+        }
+
+        .feature-card:hover i {
+            animation: iconBounce 0.5s ease infinite alternate;
+        }
+
+        @keyframes iconBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        /* --- CATALOGO --- */
+        .catalog {
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--text-main);
+            border-radius: 30px;
+            background: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-body);
+        }
+
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* --- DISEÑO DE VISTA DE LISTA UNIVERSAL (REFINADO: MÁS COMPACTO) --- */
+.grid-products.list-view {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.2rem; /* Menos espacio entre filas */
+}
+
+.grid-products.list-view .product-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    height: 140px !important; /* Altura más elegante (antes 180px) */
+    padding-right: 15px;
+}
+
+.grid-products.list-view .card-image {
+    width: 180px !important; /* Ancho reducido (antes 220px) */
+    height: 100% !important;
+    flex-shrink: 0;
+}
+
+.grid-products.list-view .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.grid-products.list-view .card-details {
+    flex-grow: 1;
+    padding: 1rem 1.2rem !important; /* Menos padding lateral y vertical */
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Reducción de textos específicos para lista */
+.grid-products.list-view .card-details h3 {
+    font-size: 1.1rem !important; /* Título más pequeño (antes era el global) */
+    margin-bottom: 4px;
+}
+
+.grid-products.list-view .price {
+    font-size: 1.2rem !important; /* Precio más discreto (antes 1.5rem) */
+    margin-bottom: 0;
+}
+
+/* Botón de carrito más pequeño y estético */
+.grid-products.list-view .add-cart {
+    width: 45px !important; /* Tamaño reducido (antes 55px) */
+    height: 45px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+    flex-shrink: 0;
+}
+
+.grid-products.list-view .add-cart i {
+    width: 18px !important; /* Icono proporcional al botón */
+    height: 18px !important;
+}
+
+.grid-products.list-view .add-cart span {
+    display: none !important;
+}
+
+/* Ajuste extremo para móviles */
+@media (max-width: 768px) {
+    .grid-products.list-view .product-card {
+        height: 110px !important; /* Muy compacto en móvil */
+    }
+    .grid-products.list-view .card-image {
+        width: 110px !important;
+    }
+    .grid-products.list-view .card-details {
+        padding: 0.8rem !important;
+    }
+    .grid-products.list-view .card-details h3 {
+        font-size: 0.95rem !important;
+    }
+    .grid-products.list-view .price {
+        font-size: 1.1rem !important;
+    }
+    .grid-products.list-view .add-cart {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    #catalogo .section-title {
+        margin-top: 6rem !important;
+    }
+}
+
+        .product-card {
+            background: var(--card-bg); /* Fondo dinámico */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .card-details {
+            padding: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .add-cart {
+            width: 100%;
+            padding: 1rem;
+            background: var(--text-main);
+            color: var(--bg-body);
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .add-cart:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        /* --- PRO SECTION --- */
+        .promo {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            background: linear-gradient(to right, #1e293b, #0f172a);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .promo-img {
+            position: relative;
+        }
+        
+        .promo-img img {
+            border-radius: 20px;
+            box-shadow: -20px 20px 0 var(--primary);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 5rem 0 2rem;
+            border-top: 5px solid var(--primary);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+            transition: 0.3s;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(15, 23, 42, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                gap: 3rem;
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.5rem; color: white !important; }
+            
+            .hamburger { display: block; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            .hamburger.active .bar {
+                background: var(--primary) !important;
+            }
+
+            .promo-grid { grid-template-columns: 1fr; }
+            .features { margin-top: 2rem; padding: 2rem; }
+
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.1rem;
+            }
+
+            /* --- ESTO SÓLO AFECTA A MÓVIL --- */
+            
+            /* 1. Baja los títulos del catálogo */
+            #catalogo .section-title {
+                margin-top: 2rem; 
+            }
+
+            /* 2. BOTONES EN FILA EN MÓVIL */
+            .hero-btns {
+                flex-direction: row !important; /* Mantiene la fila */
+                width: 100%;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+
+            .hero-btns .btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.85rem;
+                flex: 1; /* Para que midan igual */
+                justify-content: center;
+            }
+
+            /* 3. Evita que el menú tape el título al pulsar botones */
+            .catalog {
+                scroll-margin-top: 100px;
+            }
+            
+        } /* <--- CIERRE DE MEDIA QUERY MÓVIL */
+        
+
+        /* 1. Ocultamos el texto "Añadir" solo en vista de lista */
+        .grid-products.list-view .add-cart span {
+            display: none;
+        }
+
+        /* 2. Convertimos el botón en un círculo/cuadrado naranja */
+        .grid-products.list-view .add-cart {
+            width: 45px;
+            height: 45px;
+            min-width: 45px; /* Evita que se encoja */
+            padding: 0;
+            border-radius: 12px; /* Bordes redondeados modernos */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background: var(--primary); /* Naranja oficial */
+            color: var(--dark);
+        }
+
+        /* 3. Ajustamos el tamaño del icono dentro del botón */
+        .grid-products.list-view .add-cart i {
+            width: 20px;
+            height: 20px;
+        }
+
+        
+        /* --- EFECTO DE FILTRADO --- */
+        .product-card {
+            transition: transform 0.4s ease, opacity 0.4s ease; /* Suaviza cambios de tamaño y opacidad */
+        }
+
+        /* Animación de entrada para los productos */
+        @keyframes productEntrance {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.95); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1); 
+            }
+        }
+
+        .product-entrance {
+            animation: productEntrance 0.5s ease forwards;
+        }
+
+        /* --- BOTÓN SUBIR PÁGINA (MODERNO) --- */
+        .scroll-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* Posicionado a la izquierda como pediste */
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 12px; /* Bordes semi-redondeados modernos */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 2000;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            
+            /* Estado inicial oculto */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+        }
+
+        /* Cuando la clase 'visible' se activa mediante JS */
+        .scroll-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .scroll-btn:hover {
+            background: var(--dark);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .scroll-btn i {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Estilo específico para el icono del logo */
+        .logo i {
+            color: var(--primary); /* Esto le da el color naranja industrial */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ajuste opcional para que el icono no cambie a negro al hacer scroll */
+        header.scrolled .logo i {
+            color: var(--primary) !important;
+        }
+
+        /* --- NUEVA SECCIÓN SERVICIOS (MODERNO) --- */
+        .services { 
+            padding-top: 8rem; 
+            padding-bottom: 8rem;
+            background: #f1f5f9; 
+            position: relative; 
+        }
+        
+        body.dark-mode .services {
+            background: #111827; /* Fondo oscuro alternativo */
+        }
+
+        .services-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2rem; 
+            margin-top: 4rem; 
+        }
+
+        .service-item { 
+            background: var(--card-bg); 
+            padding: 3rem 2rem; 
+            border-radius: 24px; 
+            position: relative; 
+            overflow: hidden; 
+            border: 1px solid rgba(0,0,0,0.05); 
+            transition: var(--transition); 
+        }
+
+        /* Efecto al pasar el mouse: se vuelve oscuro como el resto del proyecto */
+        .service-item:hover { 
+            transform: translateY(-10px); 
+            background: var(--dark); 
+            color: white; 
+        }
+        
+        body.dark-mode .service-item:hover {
+            background: #334155;
+        }
+
+        .service-icon { 
+            margin-bottom: 1.5rem; 
+            color: var(--primary); 
+            transition: 0.4s; 
+        }
+
+        .service-item:hover .service-icon { 
+            transform: scale(1.2); 
+            color: white; 
+        }
+
+        .service-item h3 { 
+            margin-bottom: 1rem; 
+            font-size: 1.5rem; 
+        }
+
+        .service-item p { 
+            font-size: 0.95rem; 
+            color: var(--gray); 
+            transition: 0.4s; 
+        }
+
+        .service-item:hover p { 
+            color: #cbd5e1; 
+        }
+
+        .service-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            margin-top: 1.5rem; 
+            color: var(--primary); 
+            font-weight: 700; 
+            font-size: 0.9rem; 
+        }
+
+        /* --- CONTROLES DE VISTA --- */
+        .view-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .view-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--text-main);
+            color: var(--primary);
+            border-color: var(--text-main);
+        }
+
+        /* --- SISTEMA DE CARRITO PROFESIONAL --- */
+
+:root {
+    --cart-dark: #0f172a;    /* Azul casi negro para máximo contraste */
+    --cart-primary: #f59e0b; /* Tu naranja FerreMaster */
+    --cart-text: #1e293b;    /* Gris muy oscuro para lectura */
+    --cart-muted: #64748b;   /* Gris medio solo para detalles */
+}
+
+/* Botón Flotante con efecto "Solid Shadow" */
+.cart-btn-pro {
+    position: fixed;
+    bottom: 100px;
+    right: 25px;
+    width: 68px;
+    height: 68px;
+    background: var(--cart-dark);
+    border-radius: 20px; /* Estilo más cuadrado/moderno */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid white;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2), 0 0 0 4px var(--cart-primary);
+}
+
+.cart-btn-pro:hover {
+    transform: translateY(-8px) scale(1.05);
+    background: var(--cart-primary);
+}
+
+.cart-btn-pro.moved {
+    bottom: 450px !important; /* Lo sube para que no lo tapen los iconos */
+    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Ajuste para que en celulares no se salga de la pantalla */
+@media (max-width: 768px) {
+    .cart-btn-pro.moved {
+        bottom: 450px !important;
+    }
+}
+
+.cart-icon-pro { color: white; width: 30px; height: 30px; transition: 0.3s; }
+.cart-btn-pro:hover .cart-icon-pro { color: var(--cart-dark); }
+
+.cart-badge-pro {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: white;
+    color: var(--cart-dark);
+    font-size: 0.85rem;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 2px solid var(--cart-primary);
+}
+
+/* Drawer / Panel Lateral */
+.cart-overlay-pro {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    justify-content: flex-end;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+}
+
+.cart-overlay-pro.active { opacity: 1; visibility: visible; }
+
+.cart-panel-pro {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cart-overlay-pro.active .cart-panel-pro { transform: translateX(0); }
+
+/* Ajuste Móvil: PANTALLA COMPLETA */
+/* --- BUSCA ESTA PARTE EN TU CÓDIGO --- */
+@media (max-width: 768px) {
+    .cart-panel-pro {
+        max-width: 100% !important;
+        border-radius: 0;
+    }
+    .cart-btn-pro { 
+        bottom: 110px; 
+        right: 20px; 
+        width: 62px; 
+        height: 62px; 
+        
+        /* AGREGA ESTO AQUÍ ADENTRO (Línea 511 en tu código) */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(30px) scale(0.8);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Y ESTO TAMBIÉN DENTRO DE LA LLAVE DEL MEDIA QUERY */
+    .cart-btn-pro.show-on-scroll {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Header - Contraste fuerte */
+.cart-header-pro {
+    padding: 2rem 1.5rem;
+    background: var(--cart-dark);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-header-info { display: flex; align-items: center; gap: 1rem; }
+.cart-header-info h3 { font-size: 1.4rem; font-weight: 800; margin: 0; color: var(--cart-primary); }
+.cart-header-info p { font-size: 0.85rem; opacity: 0.8; margin: 0; }
+
+.cart-close-pro { background: rgba(255,255,255,0.1); border: none; color: white; width: 40px; height: 40px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+.cart-close-pro:hover { background: var(--cart-primary); color: var(--cart-dark); }
+
+/* Lista de Items - Máxima legibilidad */
+.cart-body-pro { flex: 1; overflow-y: auto; padding: 1.5rem; background: #f8fafc; }
+
+.cart-item-pro {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.cart-item-img-pro { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; border: 1px solid #f1f5f9; }
+.cart-item-details-pro { flex: 1; }
+.cart-item-details-pro h4 { color: var(--cart-dark); font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+.cart-item-details-pro .price-tag { color: var(--cart-primary); font-weight: 800; font-size: 1.1rem; }
+
+.remove-btn-pro { background: none; border: none; color: #ef4444; cursor: pointer; padding: 5px; opacity: 0.7; transition: 0.3s; }
+.remove-btn-pro:hover { opacity: 1; transform: scale(1.2); }
+
+/* Footer del Carrito */
+.cart-footer-pro { padding: 1.5rem; background: white; border-top: 2px solid #f1f5f9; }
+.cart-summary-pro { margin-bottom: 1.5rem; }
+.summary-line { display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: var(--cart-muted); font-weight: 600; }
+.summary-line.total { color: var(--cart-dark); font-size: 1.4rem; font-weight: 800; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #e2e8f0; }
+
+.btn-checkout-pro {
+    width: 100%;
+    padding: 1.2rem;
+    background: #25d366; /* Verde WhatsApp */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
+}
+
+.btn-checkout-pro:hover:not(:disabled) { background: #128c7e; transform: translateY(-3px); }
+.btn-checkout-pro:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+
+.footer-note-pro { text-align: center; font-size: 0.75rem; color: var(--cart-muted); margin-top: 1rem; }
+
+/* Estado Vacío */
+.empty-cart-state { text-align: center; padding: 4rem 2rem; color: var(--cart-dark); }
+.empty-cart-state i { color: #e2e8f0; margin-bottom: 1.5rem; }
+.empty-cart-state p { font-weight: 700; font-size: 1.2rem; opacity: 0.8; }
+
+@media (max-width: 768px) {
+    .cart-btn-pro { bottom: 110px; right: 22px; width: 60px; height: 60px; }
+    .cart-panel-pro { max-width: 90%; }
+}
+
+/* --- BARRA DE ESTADO Y VISTA (INTEGRADA) --- */
+.view-controls {
+    display: flex;
+    justify-content: space-between; /* Texto a la izquierda, botones a la derecha */
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05); /* Línea divisoria sutil */
+    padding-bottom: 1rem;
+}
+
+.view-status {
+    font-size: 0.95rem;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+#visibleCount {
+    color: var(--primary); /* Naranja FerreMaster */
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.view-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* AJUSTE ESPECÍFICO PARA MÓVIL */
+@media (max-width: 768px) {
+    .view-controls {
+        flex-direction: row !important; /* Fuerza la línea única */
+        justify-content: space-between;
+        padding: 0.8rem 0;
+    }
+
+    .view-status {
+        font-size: 0.85rem; /* Fuente más pequeña para ahorrar espacio */
+    }
+
+    .hide-mobile {
+        display: none; /* Oculta la palabra 'profesionales' en el móvil */
+    }
+
+    .view-btn {
+        width: 38px !important; /* Botones un poco más compactos */
+        height: 38px !important;
+        padding: 0 !important;
+    }
+}
+
+
+/* --- ANIMACIÓN AUTOMÁTICA Y ETIQUETA --- */
+@keyframes pulseBadge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(60, 119, 252, 0.4); }
+    100% { transform: scale(1); }
+}
+
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    z-index: 10;
+    text-transform: uppercase;
+    animation: pulseBadge 3s infinite ease-in-out;
+}
+
+/* --- AJUSTE MÓVIL (UNA SOLA LÍNEA Y ETIQUETA MINI) --- */
+@media (max-width: 768px) {
+    .hide-mobile { display: none; }
+    
+    .view-controls {
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid var(--glass-border-light);
+    }
+
+    .view-status { font-size: 0.82rem; white-space: nowrap; }
+
+    /* REDUCCIÓN DE ETIQUETA EN VISTA LISTA MÓVIL */
+    .grid-products.list-view .badge {
+        font-size: 0.55rem;   /* Letra más pequeña */
+        padding: 2px 6px;     /* Espacio interno reducido */
+        top: 6px;             /* Más cerca del borde */
+        left: 6px;
+        border-radius: 4px;   /* Bordes más finos */
+        animation: none;      /* Quitamos animación en lista para no distraer */
+    }
+}
+
+/* Estilos de la barra de herramientas */
+.view-actions { display: flex; gap: 8px; }
+#visibleCount { color: var(--primary); font-weight: 800; font-size: 1.1rem; }
+
+#fab-container.hide-fab {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+
+/* --- MODAL DE BIENVENIDA PROFESIONAL --- */
+.portfolio-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.9); /* Azul Slate oscuro */
+    backdrop-filter: blur(8px);
+    z-index: 5000; /* Por encima de todo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portfolio-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.portfolio-modal-card {
+    background: white;
+    width: 90%;
+    max-width: 550px;
+    border-radius: 24px;
+    padding: 2.5rem;
+    position: relative;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+body.dark-mode .portfolio-modal-card {
+    background: #1e293b;
+    color: white;
+}
+
+.portfolio-modal-overlay.active .portfolio-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #f1f5f9;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+body.dark-mode .modal-close-icon { background: #334155; color: white; }
+.modal-close-icon:hover { background: var(--primary); color: white; transform: rotate(90deg); }
+
+.modal-badge {
+    display: inline-block;
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.modal-title { font-size: 1.8rem; margin-bottom: 1rem; color: var(--dark); }
+body.dark-mode .modal-title { color: white; }
+
+.modal-text { color: var(--gray); line-height: 1.7; margin-bottom: 2rem; font-size: 0.95rem; }
+
+.modal-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.m-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.m-feature i { color: var(--primary); }
+
+.btn-explore {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--dark);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-explore:hover { background: var(--primary); color: var(--dark); transform: translateY(-3px); }
+
+@media (max-width: 768px) {
+    .portfolio-modal-card { padding: 2rem 1.5rem; }
+    .modal-features { grid-template-columns: 1fr; }
+}
+
+/* --- SECCIÓN CTA PORTAFOLIO --- */
+.cta-portfolio {
+    padding: 6rem 0;
+    background-color: var(--bg-body);
+}
+
+.cta-card {
+    background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+    border-radius: 30px;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 30px 60px -12px rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cta-content {
+    max-width: 600px;
+    position: relative;
+    z-index: 2;
+    text-align: left;
+}
+
+.cta-tag {
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.cta-card h2 {
+    color: white;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.cta-card p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+}
+
+.cta-actions {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-cta {
+    padding: 1.2rem 2.5rem !important;
+    font-size: 1.05rem !important;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.1);
+    color: white;
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Decoración visual */
+.cta-decoration {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.05;
+}
+
+.dec-icon {
+    width: 300px !important;
+    height: 200px !important;
+    color: white;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .cta-card { padding: 3rem 1.5rem; text-align: center; }
+    .cta-content { text-align: center; }
+    .cta-card h2 { font-size: 2rem; }
+    .cta-actions { 
+        justify-content: center; 
+        flex-direction: column; /* Apila los botones para que no choquen */
+        width: 100%;
+    }
+    
+    /* BOTÓN REFINADO PARA MÓVIL */
+    .btn-cta {
+        padding: 12px 20px !important; /* Mucho más delgado y elegante */
+        font-size: 0.95rem !important;   /* Letra un poco más pequeña */
+        width: 100%;                     /* Ocupa el ancho para mejor UX */
+        justify-content: center;
+    }
+
+    .cta-decoration { display: none; }
+}
+
+/* --- SISTEMA DE NOTIFICACIONES TOAST --- */
+#notification-container {
+    position: fixed;
+    top: 100px; /* Bajamos la posición inicial */
+    left: 20px; /* Cambiamos de derecha a izquierda */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 280px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-left: 5px solid var(--primary);
+    transform: translateX(-120%); /* NUEVO: Ahora entra desde la IZQUIERDA */
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+}
+
+/* El .active se mantiene igual, pero ahora funciona con el valor de la izquierda */
+.toast.active { transform: translateX(0); }
+
+.toast-img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+
+.toast-content h4 { font-size: 0.9rem; margin-bottom: 2px; color: var(--primary); }
+.toast-content p { font-size: 0.75rem; opacity: 0.8; margin: 0; }
+
+/* Ajuste móvil */
+@media (max-width: 768px) {
+    #notification-container { 
+        top: 85px; /* Lo bajamos en móvil también */
+        right: 15px; 
+        left: 15px; 
+    }
+    .toast { min-width: auto; width: 100%; transform: translateY(-150%); }
+    .toast.active { transform: translateY(0); }
+}
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">
+                <i data-lucide="wrench"></i>
+                Ferre<span>Master</span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#nosotros">Profesionales</a></li>
+                <li><a href="#contacto" class="btn btn-primary">Contacto</a></li>
+                <li>
+                    <button class="theme-toggle-btn" id="theme-toggle" title="Cambiar tema">
+                        <i data-lucide="moon" id="theme-icon"></i>
+                    </button>
+                </li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<section id="inicio" class="hero">
+    <img src="https://images.unsplash.com/photo-1581147036324-c17ac41dfa6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Ferretería Fondo" class="hero-bg">
+    
+    <div class="container hero-content">
+        <h1>Construye tus sueños con calidad industrial</h1>
+        <p>El catálogo más completo de herramientas y materiales para arquitectos, ingenieros y amantes del bricolaje.</p>
+        <div class="hero-btns">
+            <a href="#catalogo" class="btn btn-primary">Ver Catálogo <i data-lucide="arrow-right"></i></a>
+            <button class="btn" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(5px);">
+                <i data-lucide="play-circle"></i> Ver Demo
+            </button>
+        </div>
+    </div>
+</section>
+
+    <section class="container">
+        <div class="features">
+            <div class="feature-card reveal">
+                <div class="icon-box">
+                    <i data-lucide="truck" size="28"></i>
+                </div>
+                <h3>Envío Express 24h</h3>
+                <p>Tu proyecto no puede esperar. Entrega garantizada en tiempo récord.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-box">
+                    <i data-lucide="shield-check" size="28"></i>
+                </div>
+                <h3>Garantía de Calidad</h3>
+                <p>Solo trabajamos con marcas certificadas ISO 9001. Durabilidad asegurada.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="icon-box">
+                    <i data-lucide="users" size="28"></i>
+                </div>
+                <h3>Asesoría Técnica</h3>
+                <p>Expertos listos para resolver tus dudas técnicas en cualquier momento.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalogo" class="catalog container">
+        <div class="section-title reveal">
+            <span>Nuestros Productos</span>
+            <h2>Catálogo Premium</h2>
+            <p>Selecciona la categoría perfecta para tu trabajo</p>
+        </div>
+
+        <div class="filters reveal">
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">Eléctricos</button>
+            <button class="filter-btn">Construcción</button>
+            <button class="filter-btn">Plomería</button>
+        </div>
+
+        
+
+        <div class="view-controls container">
+    <div class="view-status">
+        Mostrando <span id="visibleCount">0</span> herramientas <span class="hide-mobile">profesionales</span>
+    </div>
+    <div class="view-actions">
+        <button id="grid-view-btn" class="view-btn active" title="Vista Mosaico">
+            <i data-lucide="layout-grid"></i>
+        </button>
+        <button id="list-view-btn" class="view-btn" title="Vista Lista">
+            <i data-lucide="stretch-horizontal"></i>
+        </button>
+    </div>
+</div>
+
+        <div class="grid-products" id="product-grid">
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="card-image"><img src="https://i.postimg.cc/1zvN6VQN/Taladro-Percutor-DCD100YP2T.png" alt="Taladro"></div>
+                <div class="card-details">
+                    <h3>Taladro Percutor Pro X2</h3>
+                    <span class="price">$120.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/QN9fq1Md/Amoladora-Angular-9.png" alt="Amoladora"></div>
+                <div class="card-details">
+                    <h3>Amoladora Angular 9"</h3>
+                    <span class="price">$85.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="card-image"><img src="https://i.postimg.cc/RCkXph6r/Sierra-Circular-1800W.png" alt="Sierra"></div>
+                <div class="card-details">
+                    <h3>Sierra Circular 1800W</h3>
+                    <span class="price">$185.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/pVhsBzdx/Atornillador-Inalambrico.png" alt="Atornillador"></div>
+                <div class="card-details">
+                    <h3>Atornillador Inalámbrico</h3>
+                    <span class="price">$65.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="card-image"><img src="https://i.postimg.cc/05MVCDNk/Soldadora-Inverter-Pro.png" alt="Soldadora"></div>
+                <div class="card-details">
+                    <h3>Soldadora Inverter Pro</h3>
+                    <span class="price">$240.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Eléctricos">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/XNRQ1qZK/Generador-Electrico-3000W.png" alt="Generador"></div>
+                <div class="card-details">
+                    <h3>Generador Eléctrico 3000W</h3>
+                    <span class="price">$450.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="card-image"><img src="https://i.postimg.cc/pTFCZMBz/Mezcladora-de-Cemento.jpg" alt="Mezcladora"></div>
+                <div class="card-details">
+                    <h3>Mezcladora de Cemento</h3>
+                    <span class="price">$520.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/63vc0xhT/Martillo-Demoledor-15kg.jpg" alt="Martillo"></div>
+                <div class="card-details">
+                    <h3>Martillo Demoledor 15kg</h3>
+                    <span class="price">$310.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="card-image"><img src="https://i.postimg.cc/NMHD4vxF/Nivel-Laser-Profesional.jpg" alt="Nivel"></div>
+                <div class="card-details">
+                    <h3>Nivel Láser Profesional</h3>
+                    <span class="price">$145.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/B6KpgfC4/Carretilla-Reforzada.jpg" alt="Carretilla"></div>
+                <div class="card-details">
+                    <h3>Carretilla Reforzada</h3>
+                    <span class="price">$75.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="card-image"><img src="https://i.postimg.cc/7629VrNH/Cortadora-de-Azulejos.jpg" alt="Cortadora"></div>
+                <div class="card-details">
+                    <h3>Cortadora de Azulejos</h3>
+                    <span class="price">$95.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Construcción">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/3w69mx2R/Vibrador-de-Concreto.jpg" alt="Vibrador"></div>
+                <div class="card-details">
+                    <h3>Vibrador de Concreto</h3>
+                    <span class="price">$190.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="card-image"><img src="https://i.postimg.cc/d0XnrVGK/Llave-Stilson-14.jpg" alt="Llave"></div>
+                <div class="card-details">
+                    <h3>Llave Stilson 14"</h3>
+                    <span class="price">$35.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/N0Vbmjmz/Cortatubos-PVC-Cobrepng.jpg" alt="Cortatubos"></div>
+                <div class="card-details">
+                    <h3>Cortatubos PVC/Cobre</h3>
+                    <span class="price">$22.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="card-image"><img src="https://i.postimg.cc/HLK3XkXK/Bomba-Periferica-0-5HP.jpg" alt="Bomba"></div>
+                <div class="card-details">
+                    <h3>Bomba Periférica 0.5HP</h3>
+                    <span class="price">$55.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="card-image"><img src="https://i.postimg.cc/0NrczwMT/Soplete-a-Gas-Pro.jpg" alt="Soplete"></div>
+                <div class="card-details">
+                    <h3>Soplete a Gas Pro</h3>
+                    <span class="price">$42.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="badge">Oferta</div> <div class="card-image"><img src="https://i.postimg.cc/QMPS1d10/Detector-de-Fugas.jpg" alt="Detector"></div>
+                <div class="card-details">
+                    <h3>Detector de Fugas</h3>
+                    <span class="price">$115.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+
+            <article class="product-card reveal" data-category="Plomería">
+                <div class="card-image"><img src="https://i.postimg.cc/wB301myQ/Llave-Francesa-12.jpg" alt="Francesa"></div>
+                <div class="card-details">
+                    <h3>Llave Francesa 12"</h3>
+                    <span class="price">$28.00</span>
+                </div>
+                <button class="add-cart"><i data-lucide="shopping-cart"></i><span>Añadir</span></button>
+            </article>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+    <div class="container">
+        <div class="section-title reveal">
+            <span>Valor Añadido</span>
+            <h2>Nuestros Servicios Especializados</h2>
+            <p>Más que una ferretería, somos tu aliado estratégico en cada etapa de la obra.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-item reveal">
+                <div class="service-icon"><i data-lucide="scissors" size="40"></i></div>
+                <h3>Corte a Medida</h3>
+                <p>Madera, acero y perfiles metálicos cortados con precisión industrial para que encajen perfecto en tu proyecto.</p>
+                <a href="#" class="service-link">Saber más <i data-lucide="chevron-right" size="16"></i></a>
+            </div>
+
+            <div class="service-item reveal">
+                <div class="service-icon"><i data-lucide="palette" size="40"></i></div>
+                <h3>Centro de Color</h3>
+                <p>Tecnología tintométrica avanzada para crear el tono exacto que buscas entre más de 10,000 opciones.</p>
+                <a href="#" class="service-link">Explorar colores <i data-lucide="chevron-right" size="16"></i></a>
+            </div>
+
+            <div class="service-item reveal">
+                <div class="service-icon"><i data-lucide="hammer" size="40"></i></div>
+                <h3>Alquiler de Equipos</h3>
+                <p>Maquinaria profesional de alto rendimiento por días o semanas. Paga solo por el tiempo que la uses.</p>
+                <a href="#" class="service-link">Ver tarifas <i data-lucide="chevron-right" size="16"></i></a>
+            </div>
+
+            <div class="service-item reveal">
+                <div class="service-icon"><i data-lucide="microscope" size="40"></i></div>
+                <h3>Análisis de Obra</h3>
+                <p>Visita de expertos a tu construcción para calcular cantidades exactas y recomendar los mejores materiales.</p>
+                <a href="#" class="service-link">Agendar visita <i data-lucide="chevron-right" size="16"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="nosotros" class="promo">
+        <div class="container promo-grid">
+            <div class="promo-text reveal">
+                <span>SOLUCIONES CORPORATIVAS</span>
+                <h2 style="font-size: 3rem; margin: 1rem 0;">Aliados de tu Empresa Constructora</h2>
+                <p style="margin-bottom: 2rem; color: #cbd5e1;">No somos solo una tienda, somos partners estratégicos. Ofrecemos líneas de crédito, entregas programadas a obra y descuentos por volumen para contratistas.</p>
+                <ul style="margin-bottom: 2rem;">
+                    <li style="display:flex; gap:10px; margin-bottom:10px;"><i data-lucide="check-circle" color="var(--primary)"></i> Facturación automatizada</li>
+                    <li style="display:flex; gap:10px; margin-bottom:10px;"><i data-lucide="check-circle" color="var(--primary)"></i> Gestor de cuenta dedicado</li>
+                    <li style="display:flex; gap:10px;"><i data-lucide="check-circle" color="var(--primary)"></i> Catálogo bajo pedido especial</li>
+                </ul>
+                <button class="btn btn-primary">Crear Cuenta Profesional</button>
+            </div>
+            <div class="promo-img reveal">
+                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Construcción">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-portfolio reveal">
+    <div class="container">
+        <div class="cta-card">
+            <div class="cta-content">
+                <span class="cta-tag">¿Te gusta lo que ves?</span>
+                <h2>¿Deseas un sitio web profesional como este?</h2>
+                <p>Transformo tus ideas en experiencias digitales de alto impacto. Diseño moderno, optimizado para móviles y enfocado en ventas.</p>
+                
+                <div class="cta-actions">
+                    <a href="https://wa.me/584162779279" class="btn btn-primary btn-cta">
+                        <i data-lucide="layout-template"></i> Quiero un sitio como este
+                    </a>
+                    <a href="TU_PORTAFOLIO_LINK" class="btn btn-outline">
+                        Ver otros proyectos
+                    </a>
+                </div>
+            </div>
+            <div class="cta-decoration">
+                <i data-lucide="code-2" class="dec-icon"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 1rem; display:inline-block; color:white;">
+                        <i data-lucide="wrench"></i> Ferre<span>Master</span>
+                    </a>
+                    <p>Elevando el estándar de la ferretería moderna. Herramientas, materiales y soluciones para quienes construyen el futuro.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Catálogo</a></li>
+                        <li><a href="#">Ofertas Semanales</a></li>
+                        <li><a href="#">Blog de Bricolaje</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Atención al Cliente</h4>
+                    <ul>
+                        <li><a href="#">Rastrea tu pedido</a></li>
+                        <li><a href="#">Política de Devolución</a></li>
+                        <li><a href="#">Garantías</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li style="display: flex; gap: 10px;"><i data-lucide="map-pin" size="18"></i> Av. Industrial 123, Ciudad</li>
+                        <li style="display: flex; gap: 10px;"><i data-lucide="phone" size="18"></i> +1 234 567 890</li>
+                        <li style="display: flex; gap: 10px;"><i data-lucide="mail" size="18"></i> ventas@ferremaster.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 FerreMaster. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="scroll-btn">
+    <i data-lucide="chevron-up"></i>
+</button>
+
+<div class="cart-btn-pro" id="cartFloatBtn">
+    <div class="cart-btn-content">
+        <i data-lucide="shopping-basket" class="cart-icon-pro"></i>
+        <span class="cart-badge-pro" id="cartCount">0</span>
+    </div>
+</div>
+
+<div class="cart-overlay-pro" id="cartModal">
+    <div class="cart-panel-pro">
+        <div class="cart-header-pro">
+            <div class="cart-header-info">
+                <i data-lucide="package-search"></i>
+                <div>
+                    <h3>Tu Carrito</h3>
+                    <p id="itemCountText">0 artículos seleccionados</p>
+                </div>
+            </div>
+            <button class="cart-close-pro" id="closeCart">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        
+        <div class="cart-body-pro" id="cartItemsContainer">
+            </div>
+
+        <div class="cart-footer-pro">
+            <div class="cart-summary-pro">
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-line total">
+                    <span>Total estimado</span>
+                    <span id="cartTotalAmount">$0.00</span>
+                </div>
+            </div>
+            <button class="btn-checkout-pro" id="sendOrderBtn" disabled>
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+                Confirmar por WhatsApp
+            </button>
+            <p class="footer-note-pro">Envío y pago a coordinar con el vendedor.</p>
+        </div>
+    </div>
+</div>
+
+<div class="portfolio-modal-overlay" id="welcomeModal">
+    <div class="portfolio-modal-card">
+        <button class="modal-close-icon" id="closeWelcome"><i data-lucide="x"></i></button>
+        
+        <span class="modal-badge">Exhibición de Portafolio</span>
+        <h2 class="modal-title">Bienvenido a FerreMaster</h2>
+        
+        <p class="modal-text">
+            Este sitio es un <strong>prototipo interactivo</strong> diseñado para demostrar mis capacidades técnicas en desarrollo Frontend, UX/UI y flujos de comercio electrónico.
+        </p>
+
+        <div class="modal-features">
+            <div class="m-feature"><i data-lucide="check-circle"></i> Interfaz Moderna</div>
+            <div class="m-feature"><i data-lucide="check-circle"></i> Carrito con Memoria</div>
+            <div class="m-feature"><i data-lucide="check-circle"></i> Diseño Responsivo</div>
+            <div class="m-feature"><i data-lucide="check-circle"></i> Simulación WhatsApp</div>
+        </div>
+
+        <button class="btn-explore" id="exploreBtn">
+            Explorar Proyecto Profesional
+        </button>
+
+        <p style="font-size: 0.7rem; color: var(--gray); margin-top: 1rem; opacity: 0.7;">
+            Nota: Los precios y pedidos mostrados no son reales.
+        </p>
+    </div>
+</div>
+
+<div id="notification-container"></div>
+
+    <script>
+
+function showToast(title, img) {
+    const container = document.getElementById('notification-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    toast.innerHTML = `
+        <img src="${img}" class="toast-img">
+        <div class="toast-content">
+            <h4>¡Agregado con éxito!</h4>
+            <p>${title}</p>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    // Animación de entrada
+    setTimeout(() => toast.classList.add('active'), 100);
+
+    // Desaparecer después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+        lucide.createIcons();
+
+        // 1. LOGICA MODO OSCURO (NUEVO)
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+
+        // Comprobar preferencia guardada
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.setAttribute('data-lucide', 'sun'); // Cambiar a sol si es oscuro
+        }
+
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.setAttribute('data-lucide', 'sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.setAttribute('data-lucide', 'moon');
+                localStorage.setItem('theme', 'light');
+            }
+            lucide.createIcons(); // Recargar iconos para que se actualice sol/luna
+        });
+
+        // 2. Menu Hamburguesa
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        const links = document.querySelectorAll('.nav-links li a'); // Modificado para cerrar al clickear enlaces
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // 3. Sticky Header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- FILTRADO DE PRODUCTOS + CONTADOR DINÁMICO ---
+const filterBtns = document.querySelectorAll('.filter-btn');
+const products = document.querySelectorAll('.product-card');
+const visibleCountSpan = document.getElementById('visibleCount');
+
+// Función para actualizar el número en pantalla
+const updateVisibleCount = () => {
+    // Cuenta cuántos productos NO están ocultos (display != none)
+    const count = Array.from(products).filter(p => p.style.display !== 'none').length;
+    visibleCountSpan.textContent = count;
+};
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filterValue = btn.textContent;
+
+        products.forEach(product => {
+            product.classList.remove('product-entrance');
+            
+            if (filterValue === 'Todos' || product.getAttribute('data-category') === filterValue) {
+                product.style.display = ''; // Muestra el producto
+                setTimeout(() => {
+                    product.classList.add('product-entrance');
+                }, 10);
+            } else {
+                product.style.display = 'none'; // Oculta el producto
+            }
+        });
+
+        // Actualizar el contador después de filtrar
+        updateVisibleCount();
+    });
+});
+
+// Inicializar el contador al cargar la página por primera vez
+updateVisibleCount();
+
+        // 5. Reveal on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        const scrollReveal = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) {
+                    reveal.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', scrollReveal);
+        scrollReveal();
+
+        // 6. Lógica para el botón de subir página
+        const scrollTopBtn = document.getElementById('scrollToTop');
+        let isScrolling;
+
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.remove('visible');
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                if (window.scrollY > 400) {
+                    scrollTopBtn.classList.add('visible');
+                }
+            }, 150);
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Asegurar que Lucide renderice el icono en el nuevo botón
+        lucide.createIcons();
+
+        // 7. Lógica para cambiar entre Vista Mosaico y Lista
+        const gridBtn = document.getElementById('grid-view-btn');
+        const listBtn = document.getElementById('list-view-btn');
+        const productGrid = document.getElementById('product-grid');
+
+        listBtn.addEventListener('click', () => {
+            productGrid.classList.add('list-view');
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+        });
+
+        gridBtn.addEventListener('click', () => {
+            productGrid.classList.remove('list-view');
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+        });
+
+        // --- SISTEMA DE TIENDA WHATSAPP PRO (CORREGIDO Y SINCRONIZADO) ---
+
+// Variables Globales de Referencia
+const cartBtn = document.getElementById('cartFloatBtn');
+const cartModal = document.getElementById('cartModal');
+const closeCartBtn = document.getElementById('closeCart');
+const container = document.getElementById('cartItemsContainer');
+const cartCount = document.getElementById('cartCount');
+const totalAmount = document.getElementById('cartTotalAmount');
+const subtotalAmount = document.getElementById('cartSubtotal');
+const checkoutBtn = document.getElementById('sendOrderBtn');
+const itemCountText = document.getElementById('itemCountText');
+
+// 1. CARGAR CARRITO DE MEMORIA (Aquí está la corrección principal)
+// Si ya hay algo guardado, lo usa. Si no, empieza vacío.
+let cart = JSON.parse(localStorage.getItem('ferremaster_cart')) || [];
+
+// Función para guardar cambios en la memoria del navegador
+function saveCart() {
+    localStorage.setItem('ferremaster_cart', JSON.stringify(cart));
+    updateUI(); // Actualizamos la vista siempre que guardamos
+}
+
+// Abrir Carrito (Con lógica de ocultar FAB)
+cartBtn.addEventListener('click', () => {
+    cartModal.classList.add('active');
+    
+    // OCULTAR el botón de redes sociales
+    const socialMenu = document.getElementById('fab-container');
+    if(socialMenu) socialMenu.classList.add('hide-fab');
+    
+    updateUI();
+});
+
+// Cerrar Carrito
+closeCartBtn.addEventListener('click', () => {
+    cartModal.classList.remove('active');
+    
+    // MOSTRAR el botón de redes sociales
+    const socialMenu = document.getElementById('fab-container');
+    if(socialMenu) socialMenu.classList.remove('hide-fab');
+});
+
+// Cerrar al hacer clic fuera
+cartModal.addEventListener('click', (e) => {
+    if (e.target === cartModal) {
+        cartModal.classList.remove('active');
+        
+        // MOSTRAR el botón de redes sociales
+        const socialMenu = document.getElementById('fab-container');
+        if(socialMenu) socialMenu.classList.remove('hide-fab');
+    }
+});
+
+// Delegación de eventos para botones "Añadir"
+document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.add-cart');
+    if (btn) {
+        const card = btn.closest('.product-card');
+        const product = {
+            id: card.querySelector('h3').innerText,
+            title: card.querySelector('h3').innerText,
+            price: parseFloat(card.querySelector('.price').innerText.replace('$', '')),
+            img: card.querySelector('img').src
+        };
+        addToCart(product);
+        
+        // Animación de feedback en el botón
+        const originalText = btn.innerHTML;
+        btn.style.background = "#25d366";
+        btn.innerHTML = '<i data-lucide="check"></i> ¡Listo!';
+        setTimeout(() => {
+            btn.style.background = "";
+            btn.innerHTML = originalText;
+            if(window.lucide) lucide.createIcons();
+        }, 1000);
+    }
+});
+
+function addToCart(item) {
+    const exists = cart.find(p => p.id === item.id);
+    if (exists) {
+        exists.qty++;
+    } else {
+        cart.push({ ...item, qty: 1 });
+    }
+    saveCart(); // GUARDAMOS en lugar de solo actualizar UI
+    showToast(item.title, item.img);
+}
+
+function updateUI() {
+    container.innerHTML = '';
+    let total = 0;
+    let qtyTotal = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="empty-cart-state">
+                <i data-lucide="shopping-cart" size="80"></i>
+                <p>Tu carrito está vacío</p>
+                <span style="font-size:0.9rem; opacity:0.6">Agrega herramientas para verlas aquí</span>
+            </div>
+        `;
+        checkoutBtn.disabled = true;
+    } else {
+        cart.forEach((item, index) => {
+            total += item.price * item.qty;
+            qtyTotal += item.qty;
+
+            const div = document.createElement('div');
+            div.className = 'cart-item-pro';
+            div.innerHTML = `
+                <img src="${item.img}" class="cart-item-img-pro">
+                <div class="cart-item-details-pro">
+                    <h4>${item.title}</h4>
+                    <div class="price-tag">$${item.price.toFixed(2)} <small style="color:#64748b; font-size:0.7rem;">x${item.qty}</small></div>
+                </div>
+                <button onclick="removeItem(${index})" class="remove-btn-pro">
+                    <i data-lucide="trash-2" size="20"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        });
+        checkoutBtn.disabled = false;
+    }
+
+    // Actualizar números
+    cartCount.innerText = qtyTotal;
+    if(itemCountText) itemCountText.innerText = `${qtyTotal} artículos seleccionados`;
+    if(subtotalAmount) subtotalAmount.innerText = `$${total.toFixed(2)}`;
+    totalAmount.innerText = `$${total.toFixed(2)}`;
+    
+    if(window.lucide) lucide.createIcons();
+}
+
+window.removeItem = (index) => {
+    cart.splice(index, 1);
+    saveCart(); // GUARDAMOS al borrar
+};
+
+// Inicializar al cargar la página (Para recuperar datos si vienes de Detalles)
+document.addEventListener('DOMContentLoaded', updateUI);
+
+// Acción WhatsApp
+checkoutBtn.addEventListener('click', () => {
+    const phone = "584162779279";
+    let msg = "🛠️ *NUEVO PEDIDO - FERREMASTER*\n";
+    msg += "---------------------------------\n\n";
+    
+    cart.forEach(item => {
+        msg += `✅ *${item.title}*\n   Cant: ${item.qty} | Sub: $${(item.price * item.qty).toFixed(2)}\n\n`;
+    });
+    
+    msg += "---------------------------------\n";
+    msg += `💰 *TOTAL ESTIMADO: ${totalAmount.innerText}*\n\n`;
+    msg += "Por favor, confírmenme disponibilidad para procesar el pago.";
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+});
+
+// NUEVA LÓGICA: Aparecer carrito al scrollear en móvil
+window.addEventListener('scroll', () => {
+    // Solo ejecutamos esto si el ancho de pantalla es de móvil (menos de 768px)
+    if (window.innerWidth <= 768) {
+        if (window.scrollY > 200) { // Si bajó más de 200px
+            cartBtn.classList.add('show-on-scroll');
+        } else {
+            cartBtn.classList.remove('show-on-scroll');
+        }
+    }
+});
+
+// 1. LÓGICA PARA RESTAURAR POSICIÓN AL CARGAR
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollPos = sessionStorage.getItem('lastScrollPos');
+    if (scrollPos) {
+        window.scrollTo(0, parseInt(scrollPos));
+        sessionStorage.removeItem('lastScrollPos'); // Limpiamos para que no pase siempre
+    }
+});
+
+// 2. LÓGICA PARA GUARDAR POSICIÓN AL SALIR
+document.addEventListener('click', (e) => {
+    const card = e.target.closest('.product-card');
+    const isButton = e.target.closest('.add-cart');
+
+    if (card && !isButton) {
+        // GUARDAMOS LA POSICIÓN ACTUAL ANTES DE IRNOS
+        sessionStorage.setItem('lastScrollPos', window.scrollY);
+
+        const title = card.querySelector('h3').innerText;
+        const price = card.querySelector('.price').innerText.replace('$', '');
+        const img = card.querySelector('img').src;
+        const cat = card.getAttribute('data-category') || 'Herramientas';
+        const isOffer = card.querySelector('.badge') ? 'true' : 'false';
+
+        window.location.href = `pagina_detalles.html?title=${encodeURIComponent(title)}&price=${price}&img=${encodeURIComponent(img)}&category=${encodeURIComponent(cat)}&offer=${isOffer}`;
+    }
+});
+
+// --- LÓGICA DEL MODAL DE BIENVENIDA (SINCRONIZADO CON BOTÓN SOCIAL) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const welcomeModal = document.getElementById('welcomeModal');
+    const closeBtn = document.getElementById('closeWelcome');
+    const exploreBtn = document.getElementById('exploreBtn');
+
+    // 1. VERIFICAR LA SESIÓN ACTUAL
+    const hasBeenShownThisSession = sessionStorage.getItem('ferremaster_session_welcome');
+
+    if (!hasBeenShownThisSession) {
+        setTimeout(() => {
+            // MOSTRAMOS EL MODAL
+            welcomeModal.classList.add('active');
+            
+            // OCULTAMOS EL BOTÓN FLOTANTE (Solo si existe en el DOM)
+            const socialMenu = document.getElementById('fab-container');
+            if(socialMenu) socialMenu.classList.add('hide-fab');
+        }, 1500);
+    }
+
+    // 2. FUNCIÓN PARA CERRAR Y RESTAURAR EL BOTÓN
+    const closeModal = () => {
+        welcomeModal.classList.remove('active');
+        sessionStorage.setItem('ferremaster_session_welcome', 'true');
+        
+        // VOLVEMOS A MOSTRAR EL BOTÓN SOCIAL
+        const socialMenu = document.getElementById('fab-container');
+        if(socialMenu) socialMenu.classList.remove('hide-fab');
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    exploreBtn.addEventListener('click', closeModal);
+
+    // Cerrar si hace clic en el fondo oscuro
+    welcomeModal.addEventListener('click', (e) => {
+        if(e.target === welcomeModal) closeModal();
+    });
+});
+
+
+    </script>
+    <script src="floating-button.js"></script>
+
+</body>
+</html>

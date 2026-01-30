@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto | FerreMaster</title>
+    
+    <link rel="icon" href="https://api.iconify.design/lucide:wrench.svg?color=%23f59e0b" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* --- 1. ESTILOS BASE --- */
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --card-bg: #ffffff;
+            --transition: all 0.3s ease;
+            
+            /* Variables del Carrito (IGUALES AL INDEX) */
+            --cart-dark: #0f172a;
+            --cart-primary: #f59e0b;
+            --cart-text: #1e293b;
+            --cart-muted: #64748b;
+        }
+
+        * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; /* <--- ESTA ES LA CLAVE */
+    }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding-top: 70px;
+        }
+
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* --- 2. HEADER SIMPLIFICADO --- */
+        header {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 0;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { font-size: 1.3rem; font-weight: 700; display: flex; gap: 0.5rem; align-items: center; color: white; }
+        .logo span { color: var(--primary); }
+        
+        .back-link { 
+            font-size: 0.8rem; 
+            font-weight: 500; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            transition: 0.3s;
+            background: rgba(255,255,255,0.15);
+            padding: 6px 12px;
+            border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .back-link:hover { background: var(--primary); color: var(--dark); }
+
+        /* --- 3. DISEÑO DE PÁGINA DE DETALLES --- */
+        .product-detail-section { padding: 3rem 0; min-height: 80vh; }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Galería */
+        .gallery-container { position: sticky; top: 100px; }
+        .main-image {
+            width: 100%;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        /* --- BUSCA Y REEMPLAZA ESTO --- */
+@keyframes breathingZoom {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); } /* El zoom se mantiene suave */
+    100% { transform: scale(1); }
+}
+
+.main-image img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    /* Cambiado de 8s a 4s para más velocidad */
+    animation: breathingZoom 4s infinite ease-in-out; 
+}
+
+/* --- AGREGAR ESTO AL CSS de pagina_detalles.html --- */
+.main-image { position: relative; } /* Necesario para que la etiqueta flote dentro */
+
+@keyframes pulseBadge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
+    100% { transform: scale(1); }
+}
+
+.main-image .badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    z-index: 10;
+    text-transform: uppercase;
+    /* Animación activada */
+    animation: pulseBadge 3s infinite ease-in-out;
+}
+
+        /* Información */
+        .product-info { padding: 1rem 0; }
+        .breadcrumb { font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem; }
+        .product-title { font-size: 2.5rem; margin-bottom: 0.5rem; line-height: 1.1; }
+        .product-price { font-size: 2rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+        .badge-detail { background: #fee2e2; color: #ef4444; font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
+        .description { font-size: 1rem; line-height: 1.6; color: #475569; margin-bottom: 2rem; }
+
+        /* Controles de Compra */
+        .actions-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            align-items: stretch;
+        }
+
+        .qty-selector {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 55px;
+            width: 120px;
+        }
+        .qty-btn { background: white; border: none; flex: 1; height: 100%; font-size: 1.2rem; cursor: pointer; }
+        #qtyInput { width: 40px; text-align: center; border: none; font-weight: 700; font-size: 1.1rem; outline: none; }
+
+        .btn-add {
+            flex: 1;
+            background: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            height: 55px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+        }
+        .btn-add:hover { background: #1e293b; transform: translateY(-2px); }
+
+        .btn-whatsapp-direct {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600; 
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            margin-top: 1rem;
+        }
+        .btn-whatsapp-direct i { font-size: 1.2rem !important; }
+
+        /* --- ESTILOS DEL CARRITO (COPIADOS EXACTAMENTE DEL INDEX) --- */
+        .cart-btn-pro {
+            position: fixed; bottom: 100px; right: 25px; width: 68px; height: 68px;
+            background: var(--cart-dark); border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1000; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid white; box-shadow: 0 15px 30px rgba(0,0,0,0.2), 0 0 0 4px var(--cart-primary);
+        }
+        .cart-btn-pro:hover { transform: translateY(-8px) scale(1.05); background: var(--cart-primary); }
+        .cart-btn-pro.moved {
+    bottom: 450px !important; 
+    transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- SISTEMA DE NOTIFICACIONES TOAST --- */
+#notification-container {
+    position: fixed;
+    top: 100px; 
+    left: 20px; 
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 280px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-left: 5px solid var(--primary);
+    transform: translateX(-120%); 
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+}
+
+.toast.active { transform: translateX(0); }
+
+.toast-img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+
+.toast-content h4 { font-size: 0.9rem; margin-bottom: 2px; color: var(--primary); }
+.toast-content p { font-size: 0.75rem; opacity: 0.8; margin: 0; }
+
+@media (max-width: 768px) {
+    #notification-container { 
+        top: 50px; 
+        right: 15px; 
+        left: 15px; 
+    }
+    .toast { min-width: auto; width: 100%; transform: translateY(-150%); }
+    .toast.active { transform: translateY(0); }
+}
+
+        .cart-icon-pro { color: white; width: 30px; height: 30px; transition: 0.3s; }
+        .cart-btn-pro:hover .cart-icon-pro { color: var(--cart-dark); }
+        .cart-badge-pro {
+            position: absolute; top: -8px; right: -8px; background: white; color: var(--cart-dark);
+            font-size: 0.85rem; font-weight: 800; width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid var(--cart-primary);
+        }
+
+        .cart-overlay-pro {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px);
+            z-index: 2000; display: flex; justify-content: flex-end; opacity: 0; visibility: hidden; transition: 0.4s;
+        }
+        .cart-overlay-pro.active { opacity: 1; visibility: visible; }
+        .cart-panel-pro {
+            width: 100%; max-width: 420px; background: white; height: 100%;
+            display: flex; flex-direction: column; transform: translateX(100%);
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cart-overlay-pro.active .cart-panel-pro { transform: translateX(0); }
+
+        .cart-header-pro { padding: 2rem 1.5rem; background: var(--cart-dark); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .cart-header-info { display: flex; align-items: center; gap: 1rem; }
+        .cart-header-info h3 { font-size: 1.4rem; font-weight: 800; margin: 0; color: var(--cart-primary); }
+        .cart-header-info p { font-size: 0.85rem; opacity: 0.8; margin: 0; }
+        .cart-close-pro { background: rgba(255,255,255,0.1); border: none; color: white; width: 40px; height: 40px; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+        
+        .cart-body-pro { flex: 1; overflow-y: auto; padding: 1.5rem; background: #f8fafc; }
+        .cart-item-pro { display: flex; gap: 1rem; padding: 1rem; background: white; border-radius: 15px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .cart-item-img-pro { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; border: 1px solid #f1f5f9; }
+        .cart-item-details-pro { flex: 1; }
+        .cart-item-details-pro h4 { color: var(--cart-dark); font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .cart-item-details-pro .price-tag { color: var(--cart-primary); font-weight: 800; font-size: 1.1rem; }
+        .remove-btn-pro { background: none; border: none; color: #ef4444; cursor: pointer; padding: 5px; opacity: 0.7; }
+
+        .cart-footer-pro { padding: 1.5rem; background: white; border-top: 2px solid #f1f5f9; }
+        .cart-summary-pro { margin-bottom: 1.5rem; }
+        .summary-line { display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: var(--cart-muted); font-weight: 600; }
+        .summary-line.total { color: var(--cart-dark); font-size: 1.4rem; font-weight: 800; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #e2e8f0; }
+        
+        .btn-checkout-pro { width: 100%; padding: 1.2rem; background: #25d366; color: white; border: none; border-radius: 15px; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 0.8rem; cursor: pointer; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); }
+        .footer-note-pro { text-align: center; font-size: 0.75rem; color: var(--cart-muted); margin-top: 1rem; }
+        .empty-cart-state { text-align: center; padding: 4rem 2rem; color: var(--cart-dark); }
+
+        /* Pie de página (NUEVO) */
+        footer {
+            background: var(--dark);
+            color: #94a3b8;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 4px solid var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE MOBILE (SOLO AQUÍ EL CARRITO SUBE) --- */
+        @media (max-width: 768px) {
+            .detail-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .gallery-container { position: relative; top: 0; }
+            .main-image { height: 320px; margin-bottom: 0.5rem; }
+            
+            .product-title { font-size: 1.8rem; margin-top: 0; }
+            .product-price { font-size: 1.6rem; margin-bottom: 1rem; }
+            
+            .actions-container { flex-direction: row; gap: 10px; }
+            .qty-selector { width: 35%; height: 50px; }
+            .btn-add { width: 65%; height: 50px; font-size: 0.95rem; }
+            
+            .btn-whatsapp-direct { padding: 12px; font-size: 0.9rem; }
+            
+            .cart-panel-pro { max-width: 100% !important; border-radius: 0; }
+            /* AQUÍ: El carrito sube solo en móvil */
+            .cart-btn-pro { bottom: 100px; right: 22px; width: 62px; height: 62px; }
+        }
+
+        /* --- EFECTO DE ENTRADA PROFESIONAL --- */
+@keyframes pageEntrance {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/* Aplicamos la animación a los contenedores principales */
+.gallery-container {
+    opacity: 0; /* Estado inicial */
+    animation: pageEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.1s; /* Aparece casi de inmediato */
+}
+
+.product-info {
+    opacity: 0; /* Estado inicial */
+    animation: pageEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.3s; /* Aparece un poco después para dar dinamismo */
+}
+
+/* Suavizamos la carga del fondo */
+body {
+    animation: fadeInBackground 0.5s ease-in-out;
+}
+
+@keyframes fadeInBackground {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+/* --- CLASE PARA OCULTAR EL BOTÓN SOCIAL (IGUAL AL INDEX) --- */
+#fab-container.hide-fab {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <i data-lucide="wrench"></i> Ferre<span>Master</span>
+                </a>
+                <a href="index.html" class="back-link" onclick="event.preventDefault(); history.back();">
+    <i data-lucide="arrow-left"></i> Catálogo
+</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="product-detail-section">
+        <div class="container detail-grid">
+            
+            <div class="gallery-container">
+                <div class="main-image">
+    <div class="badge" id="offerBadge" style="display:none;">Oferta</div>
+    <img id="detailImg" src="" alt="Producto">
+</div>
+            </div>
+
+            <div class="product-info">
+                <div class="breadcrumb">Inicio / <span id="detailCategory">...</span></div>
+                <h1 class="product-title" id="detailTitle">Cargando...</h1>
+                
+                <div class="product-price">
+    <span id="detailPrice">$0.00</span>
+</div>
+
+                <p class="description" id="detailDesc">
+                    Cargando descripción detallada del producto...
+                </p>
+
+                <div class="actions-container">
+                    <div class="qty-selector">
+                        <button class="qty-btn" onclick="updateQty(-1)">-</button>
+                        <input type="text" id="qtyInput" value="1" readonly>
+                        <button class="qty-btn" onclick="updateQty(1)">+</button>
+                    </div>
+                    <button class="btn-add" id="addToCartDetailBtn">
+                        <i data-lucide="shopping-basket"></i> Añadir
+                    </button>
+                </div>
+
+                <button class="btn-whatsapp-direct" id="buyWhatsappBtn">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Comprar directo por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-btn-pro" id="cartFloatBtn">
+        <div class="cart-btn-content">
+            <i data-lucide="shopping-basket" class="cart-icon-pro"></i>
+            <span class="cart-badge-pro" id="cartCount">0</span>
+        </div>
+    </div>
+
+    <div class="cart-overlay-pro" id="cartModal">
+        <div class="cart-panel-pro">
+            <div class="cart-header-pro">
+                <div class="cart-header-info">
+                    <i data-lucide="package-search"></i>
+                    <div>
+                        <h3>Tu Carrito</h3>
+                        <p id="itemCountText">0 artículos seleccionados</p>
+                    </div>
+                </div>
+                <button class="cart-close-pro" id="closeCart">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="cart-body-pro" id="cartItemsContainer"></div>
+
+            <div class="cart-footer-pro">
+                <div class="cart-summary-pro">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="cartSubtotal">$0.00</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Total estimado</span>
+                        <span id="cartTotalAmount">$0.00</span>
+                    </div>
+                </div>
+                <button class="btn-checkout-pro" id="sendOrderBtn" disabled>
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+                    Confirmar por WhatsApp
+                </button>
+                <p class="footer-note-pro">Envío y pago a coordinar con el vendedor.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 FerreMaster. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+<div id="notification-container"></div>
+
+    <script>
+        lucide.createIcons();
+
+        // 1. CARGAR CARRITO (LocalStorage)
+        let cart = JSON.parse(localStorage.getItem('ferremaster_cart')) || [];
+
+        const cartBtn = document.getElementById('cartFloatBtn');
+        const cartModal = document.getElementById('cartModal');
+        const closeCartBtn = document.getElementById('closeCart');
+        const container = document.getElementById('cartItemsContainer');
+        const cartCount = document.getElementById('cartCount');
+        const totalAmount = document.getElementById('cartTotalAmount');
+        const subtotalAmount = document.getElementById('cartSubtotal');
+        const checkoutBtn = document.getElementById('sendOrderBtn');
+        const itemCountText = document.getElementById('itemCountText');
+
+        // BASE DE DATOS DE DESCRIPCIONES
+        const descriptionsDB = {
+            "Taladro Percutor Pro X2": "Herramienta de perforación industrial de 1200W con sistema de impacto optimizado. Ideal para concreto reforzado y trabajos de construcción pesada. Batería de larga duración incluida.",
+            "Amoladora Angular 9\"": "Potente motor de 2500W con arranque progresivo. Diseñada para corte de metales gruesos y pulido profesional. Incluye guarda de seguridad ajustable y mango antivibración.",
+            "Sierra Circular 1800W": "Precisión milimétrica para cortes en madera y derivados. Disco de 7-1/4 pulgadas con guía láser integrada para máxima exactitud en cada pasada.",
+            "Atornillador Inalámbrico": "Compacto pero potente. Torque ajustable de 15 posiciones y luz LED para áreas de difícil acceso. Sistema de carga rápida en menos de 30 minutos."
+        };
+
+        function saveCart() {
+            localStorage.setItem('ferremaster_cart', JSON.stringify(cart));
+            updateUI();
+        }
+
+        function updateUI() {
+            container.innerHTML = '';
+            let total = 0;
+            let qtyTotal = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart-state">
+                        <i data-lucide="shopping-cart" size="80"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>`;
+                checkoutBtn.disabled = true;
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price * item.qty;
+                    qtyTotal += item.qty;
+
+                    const div = document.createElement('div');
+                    div.className = 'cart-item-pro';
+                    div.innerHTML = `
+                        <img src="${item.img}" class="cart-item-img-pro">
+                        <div class="cart-item-details-pro">
+                            <h4>${item.title}</h4>
+                            <div class="price-tag">$${item.price.toFixed(2)} <small>x${item.qty}</small></div>
+                        </div>
+                        <button onclick="removeItem(${index})" class="remove-btn-pro">
+                            <i data-lucide="trash-2" size="20"></i>
+                        </button>
+                    `;
+                    container.appendChild(div);
+                });
+                checkoutBtn.disabled = false;
+            }
+
+            cartCount.innerText = qtyTotal;
+            if(itemCountText) itemCountText.innerText = `${qtyTotal} artículos seleccionados`;
+            if(subtotalAmount) subtotalAmount.innerText = `$${total.toFixed(2)}`;
+            totalAmount.innerText = `$${total.toFixed(2)}`;
+            if(window.lucide) lucide.createIcons();
+        }
+
+        // 1. DEFINIR LA FUNCIÓN showToast PRIMERO
+function showToast(title, img) {
+    const container = document.getElementById('notification-container');
+    if (!container) return; // Seguridad adicional
+
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    
+    toast.innerHTML = `
+        <img src="${img}" class="toast-img">
+        <div class="toast-content">
+            <h4>¡Agregado con éxito!</h4>
+            <p>${title}</p>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    // Animación de entrada (100ms es el tiempo perfecto para que el DOM procese el elemento)
+    setTimeout(() => toast.classList.add('active'), 100);
+
+    // Desaparecer después de 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('active');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+
+// 2. FUNCIÓN addToCart CORREGIDA
+function addToCart(product, quantity) {
+    const exists = cart.find(p => p.id === product.title);
+    if (exists) {
+        exists.qty += quantity;
+    } else {
+        cart.push({ ...product, qty: quantity, id: product.title });
+    }
+    saveCart();
+
+    // LLAMADA CORRECTA usando la variable 'product'
+    showToast(product.title, product.img);
+    
+    cartModal.classList.add('active'); 
+    const socialMenu = document.getElementById('fab-container');
+    if(socialMenu) socialMenu.classList.add('hide-fab');
+}
+
+        window.removeItem = (index) => {
+            cart.splice(index, 1);
+            saveCart();
+        };
+
+        // Abrir Carrito y ocultar botón social
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.add('active');
+            const socialMenu = document.getElementById('fab-container');
+            if(socialMenu) socialMenu.classList.add('hide-fab');
+            updateUI();
+        });
+        
+        // Cerrar Carrito y mostrar botón social
+        closeCartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('active');
+            const socialMenu = document.getElementById('fab-container');
+            if(socialMenu) socialMenu.classList.remove('hide-fab');
+        });
+
+        // Cerrar al hacer clic fuera del panel y mostrar botón social
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.remove('active');
+                const socialMenu = document.getElementById('fab-container');
+                if(socialMenu) socialMenu.classList.remove('hide-fab');
+            }
+        });
+        
+        checkoutBtn.addEventListener('click', () => {
+            const phone = "584162779279";
+            let msg = "🛠️ *PEDIDO DESDE WEB*\n\n";
+            cart.forEach(item => {
+                msg += `✅ ${item.title} (x${item.qty}) - $${(item.price * item.qty).toFixed(2)}\n`;
+            });
+            msg += `\n💰 *TOTAL: ${totalAmount.innerText}*`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        });
+
+        function loadProductDetails() {
+            updateUI();
+            const params = new URLSearchParams(window.location.search);
+            const isOffer = params.get('offer') === 'true'; 
+const badge = document.getElementById('offerBadge');
+
+// Lógica limpia: si isOffer es true, se muestra; si es false, se oculta
+if (badge) {
+    badge.style.display = isOffer ? 'block' : 'none';
+}
+            const title = params.get('title') || "Producto";
+            
+            const currentProduct = {
+                title: title,
+                category: params.get('category') || "Herramientas Profesionales",
+                price: parseFloat(params.get('price')) || 0,
+                img: params.get('img') || "https://via.placeholder.com/500",
+                desc: descriptionsDB[title] || "Herramienta de alto rendimiento garantizada por FerreMaster para uso rudo y profesional."
+            };
+
+            document.getElementById('detailTitle').innerText = currentProduct.title;
+            document.getElementById('detailCategory').innerText = currentProduct.category;
+            document.getElementById('detailPrice').innerText = `$${currentProduct.price.toFixed(2)}`;
+            document.getElementById('detailImg').src = currentProduct.img;
+            document.getElementById('detailDesc').innerText = currentProduct.desc;
+            document.title = `${currentProduct.title} | FerreMaster`;
+
+            document.getElementById('addToCartDetailBtn').addEventListener('click', () => {
+                const qty = parseInt(document.getElementById('qtyInput').value);
+                addToCart(currentProduct, qty);
+            });
+
+            document.getElementById('buyWhatsappBtn').addEventListener('click', () => {
+                const qty = parseInt(document.getElementById('qtyInput').value);
+                const total = (currentProduct.price * qty).toFixed(2);
+                const msg = `Hola, me interesa: *${currentProduct.title}*\nCantidad: ${qty}\nTotal: $${total}\n¿Está disponible?`;
+                window.open(`https://wa.me/584162779279?text=${encodeURIComponent(msg)}`, '_blank');
+            });
+        }
+
+        window.updateQty = (change) => {
+            const input = document.getElementById('qtyInput');
+            let val = parseInt(input.value) + change;
+            if (val < 1) val = 1;
+            input.value = val;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadProductDetails);
+
+    </script>
+    <script src="floating-button.js"></script>
+
+</body>
+</html>
